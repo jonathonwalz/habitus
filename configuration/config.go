@@ -23,6 +23,8 @@ var OsTypes = []string{
 	"alpine",
 }
 
+type StringArray []string
+
 // Config stores application configurations
 type Config struct {
 	Buildfile                         string
@@ -57,6 +59,7 @@ type Config struct {
 	UseAuthenticatedSecretServer      bool
 	AuthenticatedSecretServerPassword string
 	AuthenticatedSecretServerUser     string
+	CacheFrom                         StringArray
 }
 
 func (i *TupleArray) String() string {
@@ -83,6 +86,15 @@ func (i *TupleArray) Find(key string) string {
 	}
 
 	return ""
+}
+
+func (i *StringArray) String() string {
+    return ""
+}
+
+func (i *StringArray) Set(value string) error {
+    *i = append(*i, value)
+    return nil
 }
 
 // CreateConfig creates a new configuration object

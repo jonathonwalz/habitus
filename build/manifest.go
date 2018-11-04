@@ -56,6 +56,7 @@ type Step struct {
 	AfterBuildCommand string
 	NoCache           bool
 	Secrets           []Secret
+	CacheFrom         []string
 }
 
 // Manifest Holds the whole build process
@@ -92,6 +93,7 @@ type step struct {
 	AfterBuildCommand string            `yaml:"after_build_command"`
 	NoCache           bool              `yaml:"no_cache"`
 	Secrets           map[string]secret `yaml:"secrets"`
+	CacheFrom         []string          `yaml:"cache_from"`
 }
 
 // This is loaded from the build.yml file
@@ -158,6 +160,7 @@ func (n *namespace) convertToBuild(version string) (*Manifest, error) {
 		convertedStep.Command = s.Command
 		convertedStep.AfterBuildCommand = s.AfterBuildCommand
 		convertedStep.NoCache = s.NoCache
+		convertedStep.CacheFrom = s.CacheFrom
 
 		if s.Cleanup != nil && !n.Config.NoSquash {
 			convertedStep.Cleanup = &Cleanup{Commands: s.Cleanup.Commands}

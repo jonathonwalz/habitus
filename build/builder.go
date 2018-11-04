@@ -270,6 +270,7 @@ func (b *Builder) BuildStep(step *Step, step_number int) error {
 		ContextDir:          b.getBuildContext(step), // fsouza/go-dockerclient uses "ContextDir" for the Docker build context
 		BuildArgs:           buildArgs,
 		CPUShares:           int64(b.Conf.DockerCPUShares),
+		CacheFrom:           append(b.Conf.CacheFrom, step.CacheFrom...),
 	}
 
 	if b.Conf.DockerCPUSetCPUs != "" {

@@ -70,6 +70,7 @@ func main() {
 	flag.BoolVar(&config.KeepArtifacts, "keep-artifacts", false, "Keep the temporary artifacts created on the host during build. Used for debugging")
 	flag.BoolVar(&config.UseTLS, "use-tls", os.Getenv("DOCKER_TLS_VERIFY") == "1", "Establish TLS connection with Docker daemon. Uses DOCKER_TLS_VERIFY if missing")
 	flag.BoolVar(&config.UseStatForPermissions, "use-stat", true, "Uses the stat command inside your container to get the arfifact permissions")
+	flag.Var(&config.CacheFrom, "cache-from", "Images to consider as cache sources during each Dockerfile build step.")
 
 	flag.BoolVar(&config.NoSquash, "no-cleanup", false, "Skip cleanup commands for this run. Used for debugging")
 	flag.BoolVar(&config.FroceRmImages, "force-rmi", false, "Force remove of unwanted images")
